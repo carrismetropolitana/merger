@@ -121,6 +121,7 @@ async function init() {
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'calendar_dates.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'fare_attributes.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'fare_rules.txt');
+    outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'feed_info.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'routes.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'shapes.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'stop_times.txt');
