@@ -199,7 +199,7 @@ async function importFile(filepath, filename, headers, prefix = '') {
       }
     }
     console.log(rowArray);
-    const rowString = stringify(rowArray);
+    const rowString = stringify([rowArray], { trim: true, bom: true });
     fs.appendFileSync(OUTPUT_DIRECTORY_PATH + filename, rowString);
     counter++;
   }
