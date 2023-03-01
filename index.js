@@ -31,12 +31,13 @@ async function init() {
     // Define the column headers for each GTFS file.
     // Columns headers starting with an asterisk * will have a prefix added to every row.
     const header_Agency = ['agency_id', 'agency_name', 'agency_url', 'agency_timezone', 'agency_lang', 'agency_phone'];
-    const header_CalendarDates = ['*service_id', 'holiday', 'period', 'day_type', 'date', 'exception_type'];
-    const header_Routes = ['route_id', 'agency_id', 'route_short_name', 'route_long_name', 'route_color', 'route_text_color', 'route_type', 'circular'];
+    const header_CalendarDates = ['*service_id', 'date', 'holiday', 'period', 'day_type', 'exception_type'];
+    const header_FeedInfo = ['feed_publisher_name', 'feed_publisher_url', 'feed_lang', 'default_lang', 'feed_contact_url', 'feed_version'];
+    const header_Routes = ['route_id', 'agency_id', 'route_short_name', 'route_long_name', 'route_type', 'route_color', 'route_text_color'];
     const header_Shapes = ['*shape_id', 'shape_pt_lat', 'shape_pt_lon', 'shape_pt_sequence', 'shape_dist_traveled'];
-    const header_StopTimes = ['*trip_id', 'arrival_time', 'departure_time', 'stop_id', 'stop_sequence', 'stop_headsign', 'shape_dist_traveled', 'timepoint'];
-    const header_Stops = ['stop_id', 'stop_code', 'stop_name', 'stop_lat', 'stop_lon', 'location_type', 'wheelchair_boarding'];
-    const header_Trips = ['route_id', '*service_id', '*trip_id', 'trip_headsign', 'direction_id', 'shape_id'];
+    const header_StopTimes = ['*trip_id', 'arrival_time', 'departure_time', 'stop_id', 'stop_sequence', 'shape_dist_traveled'];
+    const header_Stops = ['stop_id', 'stop_code', 'stop_name', 'stop_lat', 'stop_lon'];
+    const header_Trips = ['route_id', '*service_id', '*trip_id', 'trip_headsign', 'direction_id', '*shape_id'];
 
     console.log('✔︎ Prepared variables successfully.');
 
