@@ -32,6 +32,8 @@ async function init() {
     // Columns headers starting with an asterisk * will have a prefix added to every row.
     const header_Agency = ['agency_name', 'agency_url', 'agency_timezone', 'agency_lang', 'agency_phone'];
     const header_CalendarDates = ['*service_id', 'date', 'holiday', 'period', 'day_type', 'exception_type'];
+    const header_FareAttributes = ['fare_id', 'fare_short_name', 'fare_long_name', 'price', 'currency_type', 'payment_method', 'transfers'];
+    const header_FareRules = ['fare_id', 'route_id'];
     const header_FeedInfo = ['feed_publisher_name', 'feed_publisher_url', 'feed_lang', 'default_lang', 'feed_contact_url', 'feed_version'];
     const header_Routes = ['route_id', 'route_short_name', 'route_long_name', 'route_type', 'route_color', 'route_text_color'];
     const header_Shapes = ['*shape_id', 'shape_pt_lat', 'shape_pt_lon', 'shape_pt_sequence', 'shape_dist_traveled'];
@@ -52,6 +54,8 @@ async function init() {
     console.log('→ Creating output files...');
     createOutputFile('agency.txt', header_Agency);
     createOutputFile('calendar_dates.txt', header_CalendarDates);
+    createOutputFile('fare_attributes.txt', header_FareAttributes);
+    createOutputFile('fare_rules.txt', header_FareRules);
     createOutputFile('feed_info.txt', header_FeedInfo);
     createOutputFile('routes.txt', header_Routes);
     createOutputFile('shapes.txt', header_Shapes);
@@ -66,6 +70,8 @@ async function init() {
     console.log(`→ Importing common-data files...`);
     await importFile(COMMON_DIRECTORY_PATH, 'stops.txt', header_Stops);
     await importFile(COMMON_DIRECTORY_PATH, 'agency.txt', header_FeedInfo);
+    await importFile(COMMON_DIRECTORY_PATH, 'fare_attributes.txt', header_FeedInfo);
+    await importFile(COMMON_DIRECTORY_PATH, 'fare_rules.txt', header_FeedInfo);
     await importFile(COMMON_DIRECTORY_PATH, 'feed_info.txt', header_FeedInfo);
     console.log('✔︎ Parsed all common-data files successfully.');
 
@@ -113,6 +119,8 @@ async function init() {
     const outputZip = new AdmZip();
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'agency.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'calendar_dates.txt');
+    outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'fare_attributes.txt');
+    outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'fare_rules.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'routes.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'shapes.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'stop_times.txt');
