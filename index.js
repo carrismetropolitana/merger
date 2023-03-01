@@ -68,9 +68,9 @@ async function init() {
 
     console.log();
     console.log(`→ Importing common-data files...`);
-    await importFile(COMMON_DIRECTORY_PATH, 'agency.txt', header_FeedInfo);
-    await importFile(COMMON_DIRECTORY_PATH, 'fare_attributes.txt', header_FeedInfo);
-    await importFile(COMMON_DIRECTORY_PATH, 'fare_rules.txt', header_FeedInfo);
+    await importFile(COMMON_DIRECTORY_PATH, 'agency.txt', header_Agency);
+    await importFile(COMMON_DIRECTORY_PATH, 'fare_attributes.txt', header_FareAttributes);
+    await importFile(COMMON_DIRECTORY_PATH, 'fare_rules.txt', header_FareRules);
     await importFile(COMMON_DIRECTORY_PATH, 'feed_info.txt', header_FeedInfo);
     await importFile(COMMON_DIRECTORY_PATH, 'stops.txt', header_Stops);
     console.log('✔︎ Parsed all common-data files successfully.');
