@@ -30,10 +30,10 @@ async function init() {
 
     // Define the column headers for each GTFS file.
     // Columns headers starting with an asterisk * will have a prefix added to every row.
-    const header_Agency = ['agency_id', 'agency_name', 'agency_url', 'agency_timezone', 'agency_lang', 'agency_phone'];
+    const header_Agency = ['agency_name', 'agency_url', 'agency_timezone', 'agency_lang', 'agency_phone'];
     const header_CalendarDates = ['*service_id', 'date', 'holiday', 'period', 'day_type', 'exception_type'];
     const header_FeedInfo = ['feed_publisher_name', 'feed_publisher_url', 'feed_lang', 'default_lang', 'feed_contact_url', 'feed_version'];
-    const header_Routes = ['route_id', 'agency_id', 'route_short_name', 'route_long_name', 'route_type', 'route_color', 'route_text_color'];
+    const header_Routes = ['route_id', 'route_short_name', 'route_long_name', 'route_type', 'route_color', 'route_text_color'];
     const header_Shapes = ['*shape_id', 'shape_pt_lat', 'shape_pt_lon', 'shape_pt_sequence', 'shape_dist_traveled'];
     const header_StopTimes = ['*trip_id', 'arrival_time', 'departure_time', 'stop_id', 'stop_sequence', 'shape_dist_traveled'];
     const header_Stops = ['stop_id', 'stop_code', 'stop_name', 'stop_lat', 'stop_lon'];
@@ -65,6 +65,7 @@ async function init() {
     console.log();
     console.log(`→ Importing common-data files...`);
     await importFile(COMMON_DIRECTORY_PATH, 'stops.txt', header_Stops);
+    await importFile(COMMON_DIRECTORY_PATH, 'agency.txt', header_FeedInfo);
     await importFile(COMMON_DIRECTORY_PATH, 'feed_info.txt', header_FeedInfo);
     console.log('✔︎ Parsed all common-data files successfully.');
 
@@ -91,7 +92,6 @@ async function init() {
       console.log(`✔︎ Extracted file to "${TEMP_DIRECTORY_PATH}" successfully.`);
 
       console.log('⤷ Importing GTFS files...');
-      await importFile(TEMP_DIRECTORY_PATH, 'agency.txt', header_Agency, prefix);
       await importFile(TEMP_DIRECTORY_PATH, 'calendar_dates.txt', header_CalendarDates, prefix);
       await importFile(TEMP_DIRECTORY_PATH, 'routes.txt', header_Routes, prefix);
       await importFile(TEMP_DIRECTORY_PATH, 'shapes.txt', header_Shapes, prefix);
