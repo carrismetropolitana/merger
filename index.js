@@ -190,7 +190,7 @@ async function importFile(filepath, filename, headers, prefix = '') {
     let rowArray = [];
     for (const key of headers) {
       if (key.startsWith('*')) {
-        const realKey = key.replace('*', '');
+        const realKey = key.replace(/\*/g, '');
         const colString = rowObject[realKey];
         rowArray.push(prefix + colString);
       } else {
@@ -198,6 +198,7 @@ async function importFile(filepath, filename, headers, prefix = '') {
         rowArray.push(colString);
       }
     }
+    console.log(rowArray);
     const rowString = stringify(rowArray);
     fs.appendFileSync(OUTPUT_DIRECTORY_PATH + filename, rowString);
     counter++;
