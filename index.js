@@ -75,7 +75,7 @@ async function init() {
 
       // Define a prefix that will be used on entity IDs,
       // to avoid duplicate entries in the merged files.
-      const prefix = `a${index}_`;
+      const prefix = `p${index}_`;
 
       console.log();
       console.log(`→ Importing archive "${fileName}" with prefix "${prefix}"...`);
