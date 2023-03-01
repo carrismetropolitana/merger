@@ -180,12 +180,16 @@ async function importFile(filepath, filename, headers, prefix = '') {
     for (const key of headers) {
       if (key.startsWith('*')) {
         const realKey = key.replace('*', '');
-        rowArray.push(prefix + rowObject[realKey]);
+        const colString = rowObject[realKey];
+        if (colString.includes(',')) rowArray.push(`"${prefix}${colString}"`);
+        else rowArray.push(prefix + colString);
       } else {
-        rowArray.push(rowObject[key]);
+        const colString = rowObject[key];
+        if (colString.includes(',')) rowArray.push(`"${colString}"`);
+        else rowArray.push(colString);
       }
     }
-    fs.appendFileSync(OUTPUT_DIRECTORY_PATH + filename, rowArray.toString() + '\n');
+    fs.appendFileSync(OUTPUT_DIRECTORY_PATH + filename, rowArray.join(',') + '\n');
     counter++;
   }
   console.log(`✔︎ Imported ${counter} rows to output "${filename}" successfully`);
