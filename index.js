@@ -127,7 +127,7 @@ async function init() {
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'stop_times.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'stops.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'trips.txt');
-    outputZip.writeZip(OUTPUT_DIRECTORY_PATH + 'final-gtfs.zip');
+    outputZip.writeZip(OUTPUT_DIRECTORY_PATH + 'regional-merge.zip');
     console.log('✔︎ Archived all output files successfully.');
 
     //
@@ -150,7 +150,7 @@ async function init() {
     });
 
     console.log('⤷ Reading output archive from disk...');
-    const fileContent = fs.readFileSync(OUTPUT_DIRECTORY_PATH + 'final-gtfs.zip', { encoding: 'base64' });
+    const fileContent = fs.readFileSync(OUTPUT_DIRECTORY_PATH + 'regional-merge.zip', { encoding: 'base64' });
 
     console.log('⤷ Commiting latest changes to GitHub...');
     await octokit.rest.repos.createOrUpdateFileContents({
