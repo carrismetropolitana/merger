@@ -4,6 +4,7 @@ const github = require('@actions/github');
 const fs = require('fs');
 const AdmZip = require('adm-zip');
 const { parse } = require('csv-parse');
+const { stringify } = require('csv-stringify/sync');
 
 // Settings
 const COMMON_DIRECTORY_PATH = '/app/common-data/';
@@ -191,15 +192,14 @@ async function importFile(filepath, filename, headers, prefix = '') {
       if (key.startsWith('*')) {
         const realKey = key.replace('*', '');
         const colString = rowObject[realKey];
-        if (colString.includes(',')) rowArray.push(`"${prefix}${colString}"`);
-        else rowArray.push(prefix + colString);
+        rowArray.push(prefix + colString);
       } else {
         const colString = rowObject[key];
-        if (colString.includes(',')) rowArray.push(`"${colString}"`);
-        else rowArray.push(colString);
+        rowArray.push(colString);
       }
     }
-    fs.appendFileSync(OUTPUT_DIRECTORY_PATH + filename, rowArray.join(',') + '\n');
+    const rowString = stringify(rowArray);
+    fs.appendFileSync(OUTPUT_DIRECTORY_PATH + filename, rowString);
     counter++;
   }
   console.log(`✔︎ Imported ${counter} rows to output "${filename}" successfully`);
