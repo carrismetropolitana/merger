@@ -51,6 +51,7 @@ async function init() {
     console.log('→ Creating output files...');
     createOutputFile('agency.txt', header_Agency);
     createOutputFile('calendar_dates.txt', header_CalendarDates);
+    createOutputFile('feed_info.txt', header_FeedInfo);
     createOutputFile('routes.txt', header_Routes);
     createOutputFile('shapes.txt', header_Shapes);
     createOutputFile('stop_times.txt', header_StopTimes);
@@ -63,6 +64,7 @@ async function init() {
     console.log();
     console.log(`→ Importing common-data files...`);
     await importFile(COMMON_DIRECTORY_PATH, 'stops.txt', header_Stops);
+    await importFile(COMMON_DIRECTORY_PATH, 'feed_info.txt', header_FeedInfo);
     console.log('✔︎ Parsed all common-data files successfully.');
 
     //
