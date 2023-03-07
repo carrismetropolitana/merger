@@ -69,11 +69,11 @@ async function init() {
 
     console.log();
     console.log(`→ Importing common-data files...`);
-    await importFile(`${repositoryPath}${gtfsCommonFilesDirectoryName}/`, 'agency.txt', header_Agency);
-    await importFile(`${repositoryPath}${gtfsCommonFilesDirectoryName}/`, 'fare_attributes.txt', header_FareAttributes);
-    await importFile(`${repositoryPath}${gtfsCommonFilesDirectoryName}/`, 'fare_rules.txt', header_FareRules);
-    await importFile(`${repositoryPath}${gtfsCommonFilesDirectoryName}/`, 'feed_info.txt', header_FeedInfo);
-    await importFile(`${repositoryPath}${gtfsCommonFilesDirectoryName}/`, 'stops.txt', header_Stops);
+    await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'agency.txt', header_Agency);
+    await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'fare_attributes.txt', header_FareAttributes);
+    await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'fare_rules.txt', header_FareRules);
+    await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'feed_info.txt', header_FeedInfo);
+    await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'stops.txt', header_Stops);
     console.log('✔︎ Parsed all common-data files successfully.');
 
     //
