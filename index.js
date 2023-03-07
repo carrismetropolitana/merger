@@ -40,7 +40,7 @@ async function init() {
     const header_Shapes = ['*shape_id', 'shape_pt_lat', 'shape_pt_lon', 'shape_pt_sequence', 'shape_dist_traveled'];
     const header_StopTimes = ['*trip_id', 'arrival_time', 'departure_time', 'stop_id', 'stop_sequence', 'shape_dist_traveled'];
     const header_Stops = ['stop_id', 'stop_code', 'stop_name', 'stop_lat', 'stop_lon'];
-    const header_Trips = ['route_id', '*service_id', '*trip_id', 'trip_headsign', 'direction_id', '*shape_id'];
+    const header_Trips = ['route_id', '*service_id', '*trip_id', 'trip_headsign', 'direction_id', '*shape_id', 'calendar_desc'];
 
     console.log('✔︎ Prepared variables successfully.');
 
