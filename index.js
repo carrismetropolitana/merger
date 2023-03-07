@@ -7,7 +7,6 @@ const { parse } = require('csv-parse');
 const { stringify } = require('csv-stringify/sync');
 
 // Settings
-const COMMON_DIRECTORY_PATH = '/app/common-data/';
 const TEMP_DIRECTORY_PATH = '/app/temp/';
 const OUTPUT_DIRECTORY_PATH = '/app/output/';
 const OUTPUT_ARCHIVE_FILENAME = 'CarrisMetropolitana.zip';
