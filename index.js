@@ -28,7 +28,7 @@ async function init() {
     const repositoryPath = process.env.GITHUB_WORKSPACE;
     const filesToMerge_string = core.getInput('files-to-merge');
     const filesToMerge_array = filesToMerge_string.split(',');
-    const gtfsCommonFilesDirectoryName = core.getInput('gtfs-common-files');
+    const gtfsCommonFilesDirectoryName = core.getInput('gtfs-common-files-directory');
 
     // Define the column headers for each GTFS file.
     // Columns headers starting with an asterisk * will have a prefix added to every row.
