@@ -28,6 +28,7 @@ async function init() {
     const repositoryPath = process.env.GITHUB_WORKSPACE;
     const filesToMerge_string = core.getInput('files-to-merge');
     const filesToMerge_array = filesToMerge_string.split(',');
+    const gtfsCommonFilesDirectoryName = core.getInput('gtfs-common-files');
 
     // Define the column headers for each GTFS file.
     // Columns headers starting with an asterisk * will have a prefix added to every row.
@@ -69,11 +70,11 @@ async function init() {
 
     console.log();
     console.log(`→ Importing common-data files...`);
-    await importFile(COMMON_DIRECTORY_PATH, 'agency.txt', header_Agency);
-    await importFile(COMMON_DIRECTORY_PATH, 'fare_attributes.txt', header_FareAttributes);
-    await importFile(COMMON_DIRECTORY_PATH, 'fare_rules.txt', header_FareRules);
-    await importFile(COMMON_DIRECTORY_PATH, 'feed_info.txt', header_FeedInfo);
-    await importFile(COMMON_DIRECTORY_PATH, 'stops.txt', header_Stops);
+    await importFile(`${repositoryPath}${gtfsCommonFilesDirectoryName}/`, 'agency.txt', header_Agency);
+    await importFile(`${repositoryPath}${gtfsCommonFilesDirectoryName}/`, 'fare_attributes.txt', header_FareAttributes);
+    await importFile(`${repositoryPath}${gtfsCommonFilesDirectoryName}/`, 'fare_rules.txt', header_FareRules);
+    await importFile(`${repositoryPath}${gtfsCommonFilesDirectoryName}/`, 'feed_info.txt', header_FeedInfo);
+    await importFile(`${repositoryPath}${gtfsCommonFilesDirectoryName}/`, 'stops.txt', header_Stops);
     console.log('✔︎ Parsed all common-data files successfully.');
 
     //
