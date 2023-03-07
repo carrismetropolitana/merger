@@ -11,6 +11,7 @@ const TEMP_DIRECTORY_PATH = '/app/temp/';
 const OUTPUT_DIRECTORY_PATH = '/app/output/';
 const OUTPUT_ARCHIVE_FILENAME = 'CarrisMetropolitana.zip';
 const DEFAULT_COMMIT_MESSAGE = 'Atualização Automática';
+const DEFAULT_AGENCY_ID = 'CM';
 
 async function init() {
   try {
@@ -31,12 +32,12 @@ async function init() {
 
     // Define the column headers for each GTFS file.
     // Columns headers starting with an asterisk * will have a prefix added to every row.
-    const header_Agency = ['agency_name', 'agency_url', 'agency_timezone', 'agency_lang', 'agency_phone'];
+    const header_Agency = ['agency_id', 'agency_name', 'agency_url', 'agency_timezone', 'agency_lang', 'agency_phone'];
     const header_CalendarDates = ['*service_id', 'date', 'holiday', 'period', 'day_type', 'exception_type'];
-    const header_FareAttributes = ['fare_id', 'fare_short_name', 'fare_long_name', 'price', 'currency_type', 'payment_method', 'transfers'];
+    const header_FareAttributes = ['fare_id', 'fare_short_name', 'fare_long_name', 'price', 'currency_type', 'payment_method', 'transfers', 'agency_id'];
     const header_FareRules = ['fare_id', 'route_id'];
     const header_FeedInfo = ['feed_publisher_name', 'feed_publisher_url', 'feed_lang', 'default_lang', 'feed_contact_url', 'feed_version'];
-    const header_Routes = ['route_id', 'route_short_name', 'route_long_name', 'route_type', 'route_color', 'route_text_color'];
+    const header_Routes = ['route_id', 'agency_id', 'route_short_name', 'route_long_name', 'route_type', 'route_color', 'route_text_color'];
     const header_Shapes = ['*shape_id', 'shape_pt_lat', 'shape_pt_lon', 'shape_pt_sequence', 'shape_dist_traveled'];
     const header_StopTimes = ['*trip_id', 'arrival_time', 'departure_time', 'stop_id', 'stop_sequence', 'shape_dist_traveled'];
     const header_Stops = ['stop_id', 'stop_code', 'stop_name', 'stop_lat', 'stop_lon'];
@@ -189,14 +190,16 @@ async function importFile(filepath, filename, headers, prefix = '') {
   for await (const rowObject of parserStream) {
     let rowArray = [];
     for (const key of headers) {
+      let colString = '';
       if (key.startsWith('*')) {
         const realKey = key.replace(/\*/g, '');
-        const colString = rowObject[realKey];
-        rowArray.push(prefix + colString);
+        colString = prefix + rowObject[realKey];
+      } else if (key === 'agency_id') {
+        colString = DEFAULT_AGENCY_ID;
       } else {
-        const colString = rowObject[key];
-        rowArray.push(colString);
+        colString = rowObject[key];
       }
+      rowArray.push(colString);
     }
     const rowString = stringify([rowArray], { trim: true });
     fs.appendFileSync(OUTPUT_DIRECTORY_PATH + filename, rowString);
