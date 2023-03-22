@@ -5,6 +5,7 @@ const fs = require('fs');
 const AdmZip = require('adm-zip');
 const { parse } = require('csv-parse');
 const { stringify } = require('csv-stringify/sync');
+const assert = require('assert');
 
 // Settings
 const TEMP_DIRECTORY_PATH = '/app/temp/';
@@ -191,14 +192,40 @@ async function importFile(filepath, filename, headers, prefix = '') {
     let rowArray = [];
     for (const key of headers) {
       let colString = '';
-      if (key.startsWith('*')) {
-        const realKey = key.replace(/\*/g, '');
-        colString = prefix + rowObject[realKey];
-      } else if (key === 'agency_id') {
-        colString = DEFAULT_AGENCY_ID;
-      } else {
-        colString = rowObject[key];
+
+      switch (key) {
+        //
+        case key.startsWith('*'):
+          const realKey = key.replace(/\*/g, '');
+          colString = prefix + rowObject[realKey];
+          break;
+        //
+        case key === 'agency_id':
+          colString = DEFAULT_AGENCY_ID;
+          break;
+        //
+        case key === 'route_short_name':
+          assert(!isNaN(rowObject[key]), `Route short name ${rowObject[key]} is not numeric.`);
+          assert(rowObject[key].length == 4, `Route short name ${rowObject[key]} is not 4 characters.`);
+          colString = rowObject[key];
+          break;
+
+        case key === 'route_color':
+          assert(rowObject[key].length == 6, `Route color ${rowObject[key]} is not 6 characters.`);
+          colString = rowObject[key];
+          break;
+
+        case key === 'route_text_color':
+          assert(rowObject[key].length == 6, `Route text color ${rowObject[key]} is not 6 characters.`);
+          colString = rowObject[key];
+          break;
+
+        //
+        default:
+          colString = rowObject[key];
+          break;
       }
+
       rowArray.push(colString);
     }
     const rowString = stringify([rowArray], { trim: true });
