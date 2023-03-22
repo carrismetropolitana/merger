@@ -193,37 +193,38 @@ async function importFile(filepath, filename, headers, prefix = '') {
     for (const key of headers) {
       let colString = '';
 
-      switch (key) {
-        //
-        case key.startsWith('*'):
-          const realKey = key.replace(/\*/g, '');
-          colString = prefix + rowObject[realKey];
-          break;
-        //
-        case key === 'agency_id':
-          colString = DEFAULT_AGENCY_ID;
-          break;
-        //
-        case key === 'route_short_name':
-          assert(!isNaN(rowObject[key]), `Route short name ${rowObject[key]} is not numeric.`);
-          assert(rowObject[key].length == 4, `Route short name ${rowObject[key]} is not 4 characters.`);
-          colString = rowObject[key];
-          break;
+      // If the current header starts with an asterisk then it means it should add the prefix
+      // to the cell value for the given row-column combination.
+      if (key.startsWith('*')) {
+        const realKey = key.replace(/\*/g, '');
+        colString = prefix + rowObject[realKey];
+      }
 
-        case key === 'route_color':
-          assert(rowObject[key].length == 6, `Route color ${rowObject[key]} is not 6 characters.`);
-          colString = rowObject[key];
-          break;
+      // If the current header is 'agency_id'
+      // then the cell should be the global constant.
+      else if (key === 'agency_id') {
+        colString = DEFAULT_AGENCY_ID;
+      }
 
-        case key === 'route_text_color':
-          assert(rowObject[key].length == 6, `Route text color ${rowObject[key]} is not 6 characters.`);
-          colString = rowObject[key];
-          break;
+      // If the current header is 'route_short_name'
+      // then check if the cell value is numeric and if it is exactly 4 characters.
+      else if (key === 'route_short_name') {
+        assert(!isNaN(rowObject[key]), `Column 'route_short_name' in ${filename} is not numeric. Value is "${rowObject[key]}".`);
+        assert(rowObject[key].length === 4, `Column 'route_short_name' in ${filename} is not 4 characters. Value is "${rowObject[key]}".`);
+        colString = rowObject[key];
+      }
 
-        //
-        default:
-          colString = rowObject[key];
-          break;
+      // If the current header is 'route_color' or 'route_text_color'
+      // then check if the cell value is exactly 6 characters.
+      else if (key === 'route_color' || key === 'route_text_color') {
+        assert(rowObject[key].length === 6, `Column 'route_color' or 'route_text_color' in ${filename} is not 6 characters. Value is "${rowObject[key]}".`);
+        colString = rowObject[key];
+      }
+
+      // If the current header did not match any previous conditions,
+      // then just add the current cell value.
+      else {
+        colString = rowObject[key];
       }
 
       rowArray.push(colString);
