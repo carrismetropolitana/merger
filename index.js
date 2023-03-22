@@ -189,6 +189,7 @@ async function importFile(filepath, filename, headers, prefix = '') {
   const parserStream = fs.createReadStream(filepath + filename).pipe(parse({ columns: true, trim: true, skip_empty_lines: true, ignore_last_delimiters: true, bom: true }));
   let counter = 0;
   for await (const rowObject of parserStream) {
+    counter++;
     let rowArray = [];
     for (const key of headers) {
       let colString = '';
@@ -209,15 +210,15 @@ async function importFile(filepath, filename, headers, prefix = '') {
       // If the current header is 'route_short_name'
       // then check if the cell value is numeric and if it is exactly 4 characters.
       else if (key === 'route_short_name') {
-        assert(!isNaN(rowObject[key]), `Column 'route_short_name' in ${filename} is not numeric. Value is "${rowObject[key]}".`);
-        assert(rowObject[key].length === 4, `Column 'route_short_name' in ${filename} is not 4 characters. Value is "${rowObject[key]}".`);
+        assert(!isNaN(rowObject[key]), `Column 'route_short_name' in ${filename} is not numeric. Value is "${rowObject[key]}" on row ${counter}.`);
+        assert(rowObject[key].length === 4, `Column 'route_short_name' in ${filename} is not 4 characters. Value is "${rowObject[key]}" on row ${counter}.`);
         colString = rowObject[key];
       }
 
       // If the current header is 'route_color' or 'route_text_color'
       // then check if the cell value is exactly 6 characters.
       else if (key === 'route_color' || key === 'route_text_color') {
-        assert(rowObject[key].length === 6, `Column 'route_color' or 'route_text_color' in ${filename} is not 6 characters. Value is "${rowObject[key]}".`);
+        assert(rowObject[key].length === 6, `Column 'route_color' or 'route_text_color' in ${filename} is not 6 characters. Value is "${rowObject[key]}" on row ${counter}.`);
         colString = rowObject[key];
       }
 
@@ -231,7 +232,6 @@ async function importFile(filepath, filename, headers, prefix = '') {
     }
     const rowString = stringify([rowArray], { trim: true });
     fs.appendFileSync(OUTPUT_DIRECTORY_PATH + filename, rowString);
-    counter++;
   }
   console.log(`✔︎ Imported ${counter} rows to output "${filename}" successfully`);
 }
