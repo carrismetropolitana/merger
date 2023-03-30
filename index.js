@@ -41,8 +41,32 @@ async function init() {
     const header_Routes = ['route_id', 'agency_id', 'route_short_name', 'route_long_name', 'route_type', 'route_color', 'route_text_color', 'circular', 'path_type'];
     const header_Shapes = ['*shape_id', 'shape_pt_lat', 'shape_pt_lon', 'shape_pt_sequence', 'shape_dist_traveled'];
     const header_StopTimes = ['*trip_id', 'arrival_time', 'departure_time', 'stop_id', 'stop_sequence', 'shape_dist_traveled', 'pickup_type', 'drop_off_type'];
-    const header_Stops = ['stop_id', 'stop_code', 'stop_name', 'stop_lat', 'stop_lon', 'locality'];
     const header_Trips = ['route_id', '*service_id', '*trip_id', 'trip_headsign', 'direction_id', '*shape_id', 'calendar_desc'];
+    const header_Stops = [
+      'stop_id',
+      'stop_code',
+      'stop_name',
+      'stop_lat',
+      'stop_lon',
+      'locality',
+      'near_health_clinic',
+      'near_hospital',
+      'near_university',
+      'near_school',
+      'near_police_station',
+      'near_fire_station',
+      'near_shopping',
+      'near_historic_building',
+      'near_transit_office',
+      'light_rail',
+      'subway',
+      'train',
+      'boat',
+      'airport',
+      'bike_sharing',
+      'bike_parking',
+      'car_parking',
+    ];
 
     console.log('✔︎ Prepared variables successfully.');
 
@@ -63,8 +87,8 @@ async function init() {
     createOutputFile('routes.txt', header_Routes);
     createOutputFile('shapes.txt', header_Shapes);
     createOutputFile('stop_times.txt', header_StopTimes);
-    createOutputFile('stops.txt', header_Stops);
     createOutputFile('trips.txt', header_Trips);
+    createOutputFile('stops.txt', header_Stops);
     console.log('✔︎ Created all output files successfully.');
 
     //
@@ -128,8 +152,8 @@ async function init() {
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'routes.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'shapes.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'stop_times.txt');
-    outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'stops.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'trips.txt');
+    outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'stops.txt');
     outputZip.writeZip(OUTPUT_DIRECTORY_PATH + 'regional-merge.zip');
     console.log('✔︎ Archived all output files successfully.');
 
