@@ -48,6 +48,7 @@ async function init() {
       'stop_name',
       'stop_lat',
       'stop_lon',
+      'municipality',
       'locality',
       'near_health_clinic',
       'near_hospital',
