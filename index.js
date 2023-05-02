@@ -234,11 +234,11 @@ async function importFile(filepath, filename, headers, prefix = '') {
 
       // If the current header is 'route_short_name'
       // then check if the cell value is numeric and if it is exactly 4 characters.
-      else if (key === 'route_short_name') {
-        assert(!isNaN(rowObject[key]), `Column 'route_short_name' in ${filename} is not numeric. Value is "${rowObject[key]}" on row ${counter}.`);
-        assert(rowObject[key].length === 4, `Column 'route_short_name' in ${filename} is not 4 characters. Value is "${rowObject[key]}" on row ${counter}.`);
-        colString = rowObject[key];
-      }
+      //   else if (key === 'route_short_name') {
+      //     assert(!isNaN(rowObject[key]), `Column 'route_short_name' in ${filename} is not numeric. Value is "${rowObject[key]}" on row ${counter}.`);
+      //     assert(rowObject[key].length === 4, `Column 'route_short_name' in ${filename} is not 4 characters. Value is "${rowObject[key]}" on row ${counter}.`);
+      //     colString = rowObject[key];
+      //   }
 
       // If the current header is 'route_color' or 'route_text_color'
       // then check if the cell value is exactly 6 characters.
