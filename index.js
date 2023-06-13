@@ -33,7 +33,7 @@ async function init() {
 
     // Define the column headers for each GTFS file.
     // Columns headers starting with an asterisk * will have a prefix added to every row.
-    const header_Municipalities = ['dico', 'name', 'prefix', 'district', 'nuts_iii'];
+    const header_Municipalities = ['municipality_id', 'municipality_name', 'prefix', 'district', 'nuts_iii'];
     const header_Agency = ['agency_id', 'agency_name', 'agency_url', 'agency_timezone', 'agency_lang', 'agency_phone'];
     const header_CalendarDates = ['*service_id', 'date', 'holiday', 'period', 'day_type', 'exception_type'];
     const header_FareAttributes = ['fare_id', 'fare_short_name', 'fare_long_name', 'price', 'currency_type', 'payment_method', 'transfers', 'agency_id'];
