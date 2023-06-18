@@ -232,9 +232,21 @@ async function importFile(filepath, filename, headers, prefix = '') {
     for (const key of headers) {
       let colString = '';
 
+      // Include the feed version as the current date in YYYYMMDDHHMMSS.
+      if (key === 'feed_version') {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        colString = `${year}${month}${day}${hours}${minutes}${seconds}`;
+      }
+
       // If the current header starts with an asterisk then it means it should add the prefix
       // to the cell value for the given row-column combination.
-      if (key.startsWith('*')) {
+      else if (key.startsWith('*')) {
         const realKey = key.replace(/\*/g, '');
         colString = prefix + rowObject[realKey];
       }
