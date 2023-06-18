@@ -42,7 +42,7 @@ async function init() {
     const header_Routes = ['route_id', 'agency_id', 'route_short_name', 'route_long_name', 'route_type', 'route_color', 'route_text_color', 'circular', 'path_type'];
     const header_Shapes = ['*shape_id', 'shape_pt_lat', 'shape_pt_lon', 'shape_pt_sequence', 'shape_dist_traveled'];
     const header_StopTimes = ['*trip_id', 'arrival_time', 'departure_time', 'stop_id', 'stop_sequence', 'shape_dist_traveled', 'pickup_type', 'drop_off_type'];
-    const header_Trips = ['route_id', '*service_id', '*trip_id', 'trip_headsign', 'direction_id', '*shape_id', 'calendar_desc'];
+    const header_Trips = ['route_id', 'pattern_id', '*service_id', '*trip_id', 'trip_headsign', 'direction_id', '*shape_id', 'calendar_desc'];
     const header_Stops = [
       'stop_id',
       'stop_code',
