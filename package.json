@@ -1,6 +1,6 @@
 {
     "name": "@carrismetropolitana/merger",
-    "version": "2023.1.0",
+    "version": "2023.06.18",
     "private": true,
     "main": "index.js",
     "scripts": {
@@ -10,7 +10,7 @@
         "@actions/core": "^1.10.0",
         "@actions/github": "^5.1.1",
         "adm-zip": "^0.5.10",
-        "csv-parse": "^5.3.5",
-        "csv-stringify": "^6.2.4"
+        "csv-parse": "^5.4.0",
+        "csv-stringify": "^6.4.0"
     }
 }
