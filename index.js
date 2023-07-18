@@ -34,6 +34,25 @@ async function init() {
     // Define the column headers for each GTFS file.
     // Columns headers starting with an asterisk * will have a prefix added to every row.
     const header_Municipalities = ['municipality_prefix', 'municipality_id', 'municipality_name', 'district_id', 'district_name', 'region_id', 'region_name'];
+    const header_Facilities = [
+      'facility_id',
+      'facility_type',
+      'facility_name',
+      'facility_lat',
+      'facility_lon',
+      'address',
+      'postal_code',
+      'locality',
+      'parish_id',
+      'parish_name',
+      'municipality_id',
+      'municipality_name',
+      'district_id',
+      'district_name',
+      'region_id',
+      'region_name',
+      'facility_stops',
+    ];
     const header_Agency = ['agency_id', 'agency_name', 'agency_url', 'agency_timezone', 'agency_lang', 'agency_phone'];
     const header_CalendarDates = ['*service_id', 'date', 'holiday', 'period', 'day_type', 'exception_type'];
     const header_FareAttributes = ['fare_id', 'fare_short_name', 'fare_long_name', 'price', 'currency_type', 'payment_method', 'transfers', 'agency_id'];
@@ -91,6 +110,7 @@ async function init() {
     console.log();
     console.log('→ Creating output files...');
     createOutputFile('municipalities.txt', header_Municipalities);
+    createOutputFile('facilities.txt', header_Facilities);
     createOutputFile('agency.txt', header_Agency);
     createOutputFile('calendar_dates.txt', header_CalendarDates);
     createOutputFile('fare_attributes.txt', header_FareAttributes);
@@ -108,6 +128,7 @@ async function init() {
     console.log();
     console.log(`→ Importing common-data files...`);
     await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'municipalities.txt', header_Municipalities);
+    await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'facilities.txt', header_Facilities);
     await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'agency.txt', header_Agency);
     await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'fare_attributes.txt', header_FareAttributes);
     await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'fare_rules.txt', header_FareRules);
@@ -158,6 +179,7 @@ async function init() {
     console.log('→ Archiving output files...');
     const outputZip = new AdmZip();
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'municipalities.txt');
+    outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'facilities.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'agency.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'calendar_dates.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'fare_attributes.txt');
