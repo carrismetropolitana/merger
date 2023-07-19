@@ -249,7 +249,7 @@ const createOutputFile = (filename, headers) => {
 
 async function importFile(filepath, filename, headers, prefix = '') {
   console.log(`⤷ Importing "${filepath}${filename}" to output file...`);
-  const parser = parse({ columns: true, trim: true, skip_empty_lines: true, bom: true });
+  const parser = parse({ columns: true, trim: true, skip_empty_lines: true, bom: true, record_delimiter: ['\n', '\r', '\r\n'] });
   const parserStream = fs.createReadStream(filepath + filename).pipe(parser);
   let counter = 0;
   for await (const rowObject of parserStream) {
