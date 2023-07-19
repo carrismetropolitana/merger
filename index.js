@@ -249,7 +249,8 @@ const createOutputFile = (filename, headers) => {
 
 async function importFile(filepath, filename, headers, prefix = '') {
   console.log(`⤷ Importing "${filepath}${filename}" to output file...`);
-  const parserStream = fs.createReadStream(filepath + filename).pipe(parse({ columns: true, trim: true, skip_empty_lines: true, bom: true }));
+  const parser = parse({ columns: true, trim: true, skip_empty_lines: true, bom: true });
+  const parserStream = fs.createReadStream(filepath + filename).pipe(parser);
   let counter = 0;
   for await (const rowObject of parserStream) {
     counter++;
