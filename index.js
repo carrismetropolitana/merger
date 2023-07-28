@@ -29,6 +29,7 @@ async function init() {
     const repositoryPath = process.env.GITHUB_WORKSPACE;
     const filesToMerge_string = core.getInput('files-to-merge');
     const filesToMerge_array = filesToMerge_string.split(',');
+    const gtfsOriginFeedsDirectoryName = core.getInput('gtfs-origin-feeds-directory');
     const gtfsCommonFilesDirectoryName = core.getInput('gtfs-common-files-directory');
 
     // Define the column headers for each GTFS file.
@@ -157,7 +158,7 @@ async function init() {
       console.log('✔︎ Created temporary directory successfully.');
 
       console.log('⤷ Extracting zip file...');
-      const tempZip = new AdmZip(`${repositoryPath}/${fileName}`);
+      const tempZip = new AdmZip(`${repositoryPath}/${gtfsOriginFeedsDirectoryName}/${fileName}`);
       tempZip.extractAllTo(TEMP_DIRECTORY_PATH, true, false); // overwrite = true; keepPermissions = false
       console.log(`✔︎ Extracted file to "${TEMP_DIRECTORY_PATH}" successfully.`);
 
