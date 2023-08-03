@@ -57,6 +57,35 @@ async function init() {
       'region_name',
       'facility_stops',
     ];
+    const header_Stores = [
+      'store_id',
+      'store_type',
+      'store_name',
+      'store_lat',
+      'store_lon',
+      'store_phone',
+      'store_email',
+      'store_url',
+      'address',
+      'postal_code',
+      'locality',
+      'parish_id',
+      'parish_name',
+      'municipality_id',
+      'municipality_name',
+      'district_id',
+      'district_name',
+      'region_id',
+      'region_name',
+      'hours_monday',
+      'hours_tuesday',
+      'hours_wednesday',
+      'hours_thursday',
+      'hours_friday',
+      'hours_saturday',
+      'hours_sunday',
+      'store_stops',
+    ];
     const header_Agency = ['agency_id', 'agency_name', 'agency_url', 'agency_timezone', 'agency_lang', 'agency_phone'];
     const header_CalendarDates = ['*service_id', 'date', 'holiday', 'period', 'day_type', 'exception_type'];
     const header_FareAttributes = ['fare_id', 'fare_short_name', 'fare_long_name', 'price', 'currency_type', 'payment_method', 'transfers', 'agency_id'];
@@ -131,13 +160,14 @@ async function init() {
 
     console.log();
     console.log(`→ Importing common-data files...`);
-    await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'municipalities.txt', header_Municipalities);
-    await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'facilities.txt', header_Facilities);
     await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'agency.txt', header_Agency);
+    await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'facilities.txt', header_Facilities);
     await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'fare_attributes.txt', header_FareAttributes);
     await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'fare_rules.txt', header_FareRules);
     await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'feed_info.txt', header_FeedInfo);
+    await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'municipalities.txt', header_Municipalities);
     await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'stops.txt', header_Stops);
+    await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'stores.txt', header_Stores);
     console.log('✔︎ Parsed all common-data files successfully.');
 
     //
