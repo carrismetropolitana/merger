@@ -154,6 +154,7 @@ async function init() {
     createOutputFile('stop_times.txt', header_StopTimes);
     createOutputFile('trips.txt', header_Trips);
     createOutputFile('stops.txt', header_Stops);
+    createOutputFile('stores.txt', header_Stores);
     console.log('✔︎ Created all output files successfully.');
 
     //
