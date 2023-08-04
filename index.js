@@ -224,6 +224,7 @@ async function init() {
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'stop_times.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'trips.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'stops.txt');
+    outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'stores.txt');
     outputZip.writeZip(OUTPUT_DIRECTORY_PATH + 'regional-merge.zip');
     console.log('✔︎ Archived all output files successfully.');
 
