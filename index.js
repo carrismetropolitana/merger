@@ -58,14 +58,14 @@ async function init() {
       'facility_stops',
     ];
     const header_Helpdesks = [
-      'store_id',
-      'store_type',
-      'store_name',
-      'store_lat',
-      'store_lon',
-      'store_phone',
-      'store_email',
-      'store_url',
+      'helpdesk_id',
+      'helpdesk_type',
+      'helpdesk_name',
+      'helpdesk_lat',
+      'helpdesk_lon',
+      'helpdesk_phone',
+      'helpdesk_email',
+      'helpdesk_url',
       'address',
       'postal_code',
       'locality',
@@ -84,7 +84,7 @@ async function init() {
       'hours_friday',
       'hours_saturday',
       'hours_sunday',
-      'store_stops',
+      'helpdesk_stops',
     ];
     const header_Agency = ['agency_id', 'agency_name', 'agency_url', 'agency_timezone', 'agency_lang', 'agency_phone'];
     const header_CalendarDates = ['*service_id', 'date', 'holiday', 'period', 'day_type', 'exception_type'];
