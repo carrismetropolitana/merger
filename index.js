@@ -57,7 +57,7 @@ async function init() {
       'region_name',
       'facility_stops',
     ];
-    const header_Stores = [
+    const header_Helpdesks = [
       'store_id',
       'store_type',
       'store_name',
@@ -154,7 +154,7 @@ async function init() {
     createOutputFile('stop_times.txt', header_StopTimes);
     createOutputFile('trips.txt', header_Trips);
     createOutputFile('stops.txt', header_Stops);
-    createOutputFile('stores.txt', header_Stores);
+    createOutputFile('helpdesks.txt', header_Helpdesks);
     console.log('✔︎ Created all output files successfully.');
 
     //
@@ -168,7 +168,7 @@ async function init() {
     await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'feed_info.txt', header_FeedInfo);
     await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'municipalities.txt', header_Municipalities);
     await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'stops.txt', header_Stops);
-    await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'stores.txt', header_Stores);
+    await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'helpdesks.txt', header_Helpdesks);
     console.log('✔︎ Parsed all common-data files successfully.');
 
     //
@@ -225,7 +225,7 @@ async function init() {
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'stop_times.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'trips.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'stops.txt');
-    outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'stores.txt');
+    outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'helpdesks.txt');
     outputZip.writeZip(OUTPUT_DIRECTORY_PATH + 'regional-merge.zip');
     console.log('✔︎ Archived all output files successfully.');
 
