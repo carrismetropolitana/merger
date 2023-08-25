@@ -121,7 +121,6 @@ async function init() {
     console.log();
     console.log('→ Creating output files...');
     createOutputFile('municipalities.txt', header_Municipalities);
-    createOutputFile('facilities.txt', header_Facilities);
     createOutputFile('agency.txt', header_Agency);
     createOutputFile('calendar_dates.txt', header_CalendarDates);
     createOutputFile('fare_attributes.txt', header_FareAttributes);
