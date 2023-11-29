@@ -39,6 +39,7 @@ async function init() {
     const header_CalendarDates = ['*service_id', 'date', 'holiday', 'period', 'day_type', 'exception_type'];
     const header_FareAttributes = ['fare_id', 'fare_short_name', 'fare_long_name', 'price', 'currency_type', 'payment_method', 'transfers', 'agency_id'];
     const header_FareRules = ['fare_id', 'route_id'];
+    const header_Periods = ['period_id', 'period_name'];
     const header_FeedInfo = ['feed_publisher_name', 'feed_publisher_url', 'feed_lang', 'default_lang', 'feed_contact_url', 'feed_version'];
     const header_Routes = ['route_id', 'agency_id', 'route_short_name', 'route_long_name', 'route_type', 'route_color', 'route_text_color', 'circular', 'path_type'];
     const header_Shapes = ['*shape_id', 'shape_pt_lat', 'shape_pt_lon', 'shape_pt_sequence', 'shape_dist_traveled'];
@@ -96,6 +97,7 @@ async function init() {
     createOutputFile('calendar_dates.txt', header_CalendarDates);
     createOutputFile('fare_attributes.txt', header_FareAttributes);
     createOutputFile('fare_rules.txt', header_FareRules);
+    createOutputFile('periods.txt', header_Periods);
     createOutputFile('feed_info.txt', header_FeedInfo);
     createOutputFile('routes.txt', header_Routes);
     createOutputFile('shapes.txt', header_Shapes);
@@ -111,6 +113,7 @@ async function init() {
     await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'agency.txt', header_Agency);
     await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'fare_attributes.txt', header_FareAttributes);
     await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'fare_rules.txt', header_FareRules);
+    await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'periods.txt', header_Periods);
     await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'feed_info.txt', header_FeedInfo);
     await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'municipalities.txt', header_Municipalities);
     await importFile(`${repositoryPath}/${gtfsCommonFilesDirectoryName}/`, 'stops.txt', header_Stops);
@@ -163,6 +166,7 @@ async function init() {
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'calendar_dates.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'fare_attributes.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'fare_rules.txt');
+    outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'periods.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'feed_info.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'routes.txt');
     outputZip.addLocalFile(OUTPUT_DIRECTORY_PATH + 'shapes.txt');
