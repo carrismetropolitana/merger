@@ -41,7 +41,7 @@ async function init() {
     const header_FareRules = ['fare_id', 'route_id'];
     const header_Periods = ['period_id', 'period_name'];
     const header_Dates = ['date', 'period', 'day_type', 'holiday', 'description'];
-    const header_FeedInfo = ['feed_publisher_name', 'feed_publisher_url', 'feed_lang', 'default_lang', 'feed_contact_url', 'feed_version'];
+    const header_FeedInfo = ['feed_publisher_name', 'feed_publisher_url', 'feed_lang', 'default_lang', 'feed_contact_url', 'feed_version', 'feed_start_date'];
     const header_Routes = ['route_id', 'agency_id', 'route_short_name', 'route_long_name', 'route_type', 'route_color', 'route_text_color', 'circular', 'path_type'];
     const header_Shapes = ['*shape_id', 'shape_pt_lat', 'shape_pt_lon', 'shape_pt_sequence', 'shape_dist_traveled'];
     const header_StopTimes = ['trip_id', 'arrival_time', 'departure_time', 'stop_id', 'stop_sequence', 'shape_dist_traveled', 'pickup_type', 'drop_off_type'];
@@ -252,6 +252,16 @@ async function importFile(filepath, filename, headers, prefix = '') {
         const minutes = String(now.getMinutes()).padStart(2, '0');
         const seconds = String(now.getSeconds()).padStart(2, '0');
         colString = `${year}${month}${day}${hours}${minutes}${seconds}`;
+      }
+
+      // If the current header is 'feed_start_date'
+      // then set the current date as the feed_start_date.
+      else if (key === 'feed_start_date') {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        colString = `${year}-${month}-${day}`;
       }
 
       // If the current header starts with an asterisk then it means it should add the prefix
