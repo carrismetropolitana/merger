@@ -261,7 +261,7 @@ async function importFile(filepath, filename, headers, prefix = '') {
         const year = now.getFullYear();
         const month = String(now.getMonth() + 1).padStart(2, '0');
         const day = String(now.getDate()).padStart(2, '0');
-        colString = `${year}-${month}-${day}`;
+        colString = `${year}${month}${day}`;
       }
 
       // If the current header starts with an asterisk then it means it should add the prefix
