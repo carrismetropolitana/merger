@@ -306,7 +306,7 @@ async function importFile(filepath, filename, headers, prefix = '') {
       // If the current header starts with an exclamation mark then it means it should add the prefix
       // to the cell value for the given row-column combination ONLY IN CERTAIN SITUATIONS.
       else if (key.startsWith('!') && prefix === 'p2_') {
-        const realKey = key.replace(/\*/g, '');
+        const realKey = key.replace(/\!/g, '');
         colString = prefix + rowObject[realKey];
       }
 
