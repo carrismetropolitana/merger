@@ -43,7 +43,7 @@ async function init() {
     const header_Routes = ['agency_id', 'line_id', 'line_short_name', 'line_long_name', 'route_id', 'route_short_name', 'route_long_name', 'route_type', 'route_color', 'route_text_color', 'circular', 'path_type'];
     const header_Shapes = ['*shape_id', 'shape_pt_lat', 'shape_pt_lon', 'shape_pt_sequence', 'shape_dist_traveled'];
     const header_StopTimes = ['trip_id', 'arrival_time', 'departure_time', 'stop_id', 'stop_sequence', 'shape_dist_traveled', 'pickup_type', 'drop_off_type'];
-    const header_Trips = ['route_id', 'pattern_id', '*service_id', 'trip_id', 'trip_headsign', 'direction_id', '*shape_id', 'calendar_desc'];
+    const header_Trips = ['route_id', 'pattern_id', '*service_id', '!trip_id', 'trip_headsign', 'direction_id', '*shape_id', 'calendar_desc'];
     const header_Stops = [
       'stop_id',
       'stop_code',
@@ -299,6 +299,13 @@ async function importFile(filepath, filename, headers, prefix = '') {
       // If the current header starts with an asterisk then it means it should add the prefix
       // to the cell value for the given row-column combination.
       else if (key.startsWith('*')) {
+        const realKey = key.replace(/\*/g, '');
+        colString = prefix + rowObject[realKey];
+      }
+
+      // If the current header starts with an exclamation mark then it means it should add the prefix
+      // to the cell value for the given row-column combination ONLY IN CERTAIN SITUATIONS.
+      else if (key.startsWith('!') && prefix === 'p2_') {
         const realKey = key.replace(/\*/g, '');
         colString = prefix + rowObject[realKey];
       }
