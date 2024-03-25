@@ -24,8 +24,6 @@ async function init() {
     console.log();
     console.log('→ Preparing variables...');
 
-    const token = core.getInput('token');
-    const octokit = github.getOctokit(token);
     const repositoryPath = process.env.GITHUB_WORKSPACE;
     const filesToMerge_string = core.getInput('files-to-merge');
     const filesToMerge_array = filesToMerge_string.split(',');
@@ -185,33 +183,32 @@ async function init() {
     console.log();
     console.log('→ Pushing changes to GitHub...');
 
-    console.log('⤷ Fetching repository information...');
-    const { data: contents } = await octokit.rest.repos.getContent({
-      owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      path: OUTPUT_ARCHIVE_FILENAME,
-    });
-
-    console.log('⤷ Fetching last commit message...');
-    const commits = await octokit.rest.repos.listCommits({
-      owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      commit_sha: github.context.repo.sha,
-    });
-
-    console.log('⤷ Reading output archive from disk...');
-    const fileContent = fs.readFileSync(OUTPUT_DIRECTORY_PATH + 'regional-merge.zip', { encoding: 'base64' });
-
-    console.log('⤷ Commiting latest changes to GitHub...');
-    await octokit.rest.repos.createOrUpdateFileContents({
-      owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      path: OUTPUT_ARCHIVE_FILENAME,
-      message: commits.data[0].commit.message || DEFAULT_COMMIT_MESSAGE,
-      content: fileContent.toString(),
-      sha: contents.sha,
-    });
-    console.log('✔︎ Pushed changes to GitHub successfully.');
+    try {
+      await commitFileToRepo();
+    } catch (error) {
+      console.log(error);
+      console.log();
+      console.log('RETRYING 1....');
+      try {
+        await commitFileToRepo();
+      } catch (error) {
+        console.log(error);
+        console.log();
+        console.log('RETRYING 2....');
+        try {
+          await commitFileToRepo();
+        } catch (error) {
+          console.log(error);
+          console.log();
+          console.log('RETRYING 3....');
+          try {
+            await commitFileToRepo();
+          } catch (error) {
+            console.log('RETRY FAILED AFTER 3 TIMES.');
+          }
+        }
+      }
+    }
 
     console.log();
     console.log('■ Done :)');
@@ -223,6 +220,41 @@ async function init() {
     core.setFailed(error.message);
   }
 }
+
+// Create Output File
+const commitFileToRepo = async () => {
+  //
+  const token = core.getInput('token');
+  const octokit = github.getOctokit(token);
+
+  console.log('⤷ Fetching repository information...');
+  const { data: contents } = await octokit.rest.repos.getContent({
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+    path: OUTPUT_ARCHIVE_FILENAME,
+  });
+
+  console.log('⤷ Fetching last commit message...');
+  const commits = await octokit.rest.repos.listCommits({
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+    commit_sha: github.context.repo.sha,
+  });
+
+  console.log('⤷ Reading output archive from disk...');
+  const fileContent = fs.readFileSync(OUTPUT_DIRECTORY_PATH + 'regional-merge.zip', { encoding: 'base64' });
+
+  console.log('⤷ Commiting latest changes to GitHub...');
+  await octokit.rest.repos.createOrUpdateFileContents({
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+    path: OUTPUT_ARCHIVE_FILENAME,
+    message: commits.data[0].commit.message || DEFAULT_COMMIT_MESSAGE,
+    content: fileContent.toString(),
+    sha: contents.sha,
+  });
+  console.log('✔︎ Pushed changes to GitHub successfully.');
+};
 
 // Create Output File
 const createOutputFile = (filename, headers) => {
