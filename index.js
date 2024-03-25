@@ -42,8 +42,8 @@ async function init() {
     const header_FeedInfo = ['feed_publisher_name', 'feed_publisher_url', 'feed_lang', 'default_lang', 'feed_contact_url', 'feed_version', 'feed_start_date'];
     const header_Routes = ['agency_id', 'line_id', 'line_short_name', 'line_long_name', 'route_id', 'route_short_name', 'route_long_name', 'route_type', 'route_color', 'route_text_color', 'circular', 'path_type'];
     const header_Shapes = ['*shape_id', 'shape_pt_lat', 'shape_pt_lon', 'shape_pt_sequence', 'shape_dist_traveled'];
-    const header_StopTimes = ['!trip_id', 'arrival_time', 'departure_time', 'stop_id', 'stop_sequence', 'shape_dist_traveled', 'pickup_type', 'drop_off_type'];
-    const header_Trips = ['route_id', 'pattern_id', '*service_id', '!trip_id', 'trip_headsign', 'direction_id', '*shape_id', 'calendar_desc'];
+    const header_StopTimes = ['trip_id', 'arrival_time', 'departure_time', 'stop_id', 'stop_sequence', 'shape_dist_traveled', 'pickup_type', 'drop_off_type'];
+    const header_Trips = ['route_id', 'pattern_id', '*service_id', 'trip_id', 'trip_headsign', 'direction_id', '*shape_id', 'calendar_desc'];
     const header_Stops = [
       'stop_id',
       'stop_code',
@@ -258,7 +258,7 @@ const commitFileToRepo = async () => {
 
 // Create Output File
 const createOutputFile = (filename, headers) => {
-  const headersString = headers.join(',').replace(/[\*\!]/g, '');
+  const headersString = headers.join(',').replace(/\*/g, '');
   fs.writeFileSync(OUTPUT_DIRECTORY_PATH + filename, headersString + '\n');
   console.log(`⤷ Created file "${OUTPUT_DIRECTORY_PATH + filename}" successfully.`);
 };
@@ -305,8 +305,8 @@ async function importFile(filepath, filename, headers, prefix = '') {
 
       // If the current header starts with an exclamation mark then it means it should add the prefix
       // to the cell value for the given row-column combination ONLY IN CERTAIN SITUATIONS.
-      else if (key.startsWith('!') && prefix === 'p2_') {
-        const realKey = key.replace(/\!/g, '');
+      else if (key === 'trip_id' && prefix === 'p2_') {
+        const realKey = key.replace(/\*/g, '');
         colString = prefix + rowObject[realKey];
       }
 
