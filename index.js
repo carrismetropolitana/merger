@@ -303,13 +303,6 @@ async function importFile(filepath, filename, headers, prefix = '') {
         colString = prefix + rowObject[realKey];
       }
 
-      // If the current header starts with an exclamation mark then it means it should add the prefix
-      // to the cell value for the given row-column combination ONLY IN CERTAIN SITUATIONS.
-      else if (key === 'trip_id' && prefix === 'p2_') {
-        const realKey = key.replace(/\*/g, '');
-        colString = prefix + rowObject[realKey];
-      }
-
       // If the current header is 'agency_id'
       // then the cell should be the global constant.
       else if (key === 'agency_id') {
